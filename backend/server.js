@@ -3,7 +3,10 @@ const app = express();
 const port = 5000;
 
 app.get('/', (req, res) => {
-    res.send("Application initialized");
+    res.json({
+        "version": "1.0.0",
+        "active": true
+    });
 });
 
 app.listen(port, '0.0.0.0', () => {
