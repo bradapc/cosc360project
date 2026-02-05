@@ -6,6 +6,7 @@ const port = 5000;
 app.use(express.json());
 
 app.use('/register', require('./routes/register'));
+app.use('/login', require('./routes/login'));
 
 app.get('/', (req, res) => {
     res.json({
