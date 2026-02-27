@@ -1,28 +1,27 @@
 import React from 'react'
-import '../css/Register.css'
+import '../css/Auth.css'
+import { Link } from 'react-router-dom'
 
 const Register = () => {
   return (
-    <div>
-        <h2>Register</h2>
-        <form>
+    <div className="auth-div">
+        <form method="post" className="auth-form">
+          <h2>Sign up</h2>
+          <p>Lets find a job right for you</p>
+          <div>
+            <input className="auth-input-box" type="text" placeholder = "Username" aria-label="username"/>
+          </div>
 
-        <div>
-          <label htmlFor="username">Username: </label>
-          <input type="text" placeholder = "Enter Username"/>
-        </div>
+          <div>
+            <input className="auth-input-box" type="text" id="email" name="email" placeholder = "Email" aria-label="email"/>
+          </div>
 
-        <div>
-          <label htmlFor="email">Email: </label>
-          <input type="text" id="email" name="email" placeholder = "Enter Email"/>
-        </div>
+          <div>
+            <input className="auth-input-box" type="password" id="password" name="password" placeholder = "Password" aria-label="password"/>
+          </div>
 
-        <div>
-          <label>Password: </label>
-          <input type="password" id="password" name="password" placeholder = "Enter Password"/>
-        </div>
-
-        <button type="submit">Register</button>
+          <button type="submit">Register</button>
+          <p id="has-account">Already have an account? <Link id="has-account-redirect" to="/login">Sign in</Link> instead</p>
         </form>
 
     </div>
