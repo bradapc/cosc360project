@@ -8,8 +8,8 @@ function App() {
     <div className="App">
       <Navbar />
       Hello COSC360Project!
-      <Footer />
       <Login />
+      <Footer />
     </div>
 
   );

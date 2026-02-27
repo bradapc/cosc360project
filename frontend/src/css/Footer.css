@@ -1,0 +1,14 @@
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin:10px;
+    font-size: 15px;
+}
+#copyright {
+    color: #064711;
+    font-style: italic;
+}
