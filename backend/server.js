@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const port = 5000;
 const cors = require('cors');
+const {connectToDb} = require('./db/connection');
+
+connectToDb();
 
 const allowedOrigins = [
     "http://localhost:3000",
