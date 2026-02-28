@@ -26,6 +26,7 @@ app.use(express.json());
 
 app.use('/register', require('./routes/register'));
 app.use('/login', require('./routes/login'));
+app.use('/jobs', require('./routes/jobs'));
 
 app.get('/', (req, res) => {
     res.json({
