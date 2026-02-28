@@ -3,10 +3,24 @@ const Job = require('../models/Job');
 const handleGetJobs = async (req, res) => {
     try {
         const jobs = await Job.find().populate('createdBy', 'username');
-        res.status(200).json(jobs);
+        return res.status(200).json(jobs);
     } catch (err) {
         console.error(err);
-        res.status(500).json({message: "Server error"});
+        return res.status(500).json({message: "Server error"});
+    }
+};
+
+const handleGetJobById = async (req, res) => {
+    const jobId = req.params.id
+    try {
+        const job = await Job.findById(jobId).populate('createdBy', 'username');
+        if (!job) {
+            return res.status(404).json({message: "Job not found"});
+        }
+        return res.status(200).json(job);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message: 'Server error'});
     }
 };
 
@@ -50,4 +64,4 @@ const handlePostJob = async (req, res) => {
     }
 };
 
-module.exports = {handleGetJobs, handlePostJob}
+module.exports = {handleGetJobs, handlePostJob, handleGetJobById}
