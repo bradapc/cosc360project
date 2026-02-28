@@ -11,7 +11,7 @@ const handleRegister = async (req, res) => {
         return res.status(400).json({'message': `${result.msg}`});
     }
 
-    const {username, password, dob, firstname, lastname, email} = req.body;
+    const {username, password, dateOfBirth, firstName, lastName, emailAddress} = req.body;
 
     //Check database for username
     const db = await connectToDb();
@@ -26,10 +26,10 @@ const handleRegister = async (req, res) => {
     const user = {
         username,
         hashedPassword,
-        dob,
-        firstname,
-        lastname,
-        email
+        dateOfBirth,
+        firstName,
+        lastName,
+        emailAddress
     }
 
     await collection.insertOne(user);
@@ -47,22 +47,22 @@ const validateData = (body) => {
     } else if (!body.password) {
         result.valid = false;
         result.msg = "Missing password"
-    } else if (!body.dob) {
+    } else if (!body.dateOfBirth) {
         result.valid = false;
         result.msg = "Missing date of birth"
-    } else if (!body.firstname) {
+    } else if (!body.firstName) {
         result.valid = false;
         result.msg = "Missing first name"
-    } else if (!body.lastname) {
+    } else if (!body.lastName) {
         result.valid = false;
         result.msg = "Missing last name"
-    } else if (!body.email) {
+    } else if (!body.emailAddress) {
         result.valid = false;
         result.msg = "Missing email address"
-    } else if (!body.confirm_password) {
+    } else if (!body.confirmPassword) {
         result.valid = false;
         result.msg = "Missing password confirmation"
-    } else if (body.password !== body.confirm_password) {
+    } else if (body.password !== body.confirmPassword) {
         result.valid = false;
         result.msg = "Passwords do not match"
     }
