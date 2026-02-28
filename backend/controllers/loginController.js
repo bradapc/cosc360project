@@ -30,7 +30,17 @@ const handleLogin = async (req, res) => {
     const JWT_SECRET = process.env.JWT_SECRET;
     const accessToken = jwt.sign(payload, JWT_SECRET, {expiresIn: '15m'});
 
-    return res.status(201).json({accessToken});
+    res.cookie('jwt', accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+        maxAge: 3600000,
+        path: '/'
+    });
+
+    return res.status(200).json({message: "User log in successful",
+        userId: user._id
+    });
 };
 
 module.exports = {handleLogin}

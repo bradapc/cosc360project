@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 5000;
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const {connectToDb} = require('./db/connection');
 
 connectToDb();
@@ -23,6 +24,9 @@ app.use(cors({
 
 //For parsing JSON bodies
 app.use(express.json());
+
+//Parses cookies for JWT
+app.use(cookieParser());
 
 app.use('/register', require('./routes/register'));
 app.use('/login', require('./routes/login'));
