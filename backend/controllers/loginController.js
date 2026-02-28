@@ -22,7 +22,7 @@ const handleLogin = async (req, res) => {
 
     const match = await bcrypt.compare(password, dbResult.hashedPassword);
     if (!match) {
-        return res.status(401).json({'message': 'No match'})
+        return res.status(401).json({'message': 'Invalid password'})
     }
 
     const payload = {
