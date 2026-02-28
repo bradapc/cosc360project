@@ -24,6 +24,31 @@ const handleGetJobById = async (req, res) => {
     }
 };
 
+const handleDeleteJob = async (req, res) => {
+    const jobId = req.params.id
+    try {
+        const job = await Job.findById(jobId);
+        if (!job) {
+            return res.status(404).json({message: "Job not found"});
+        }
+
+        if (job.createdBy._id.toString() !== req.user.userId) {
+            return res.status(401).json({message: "Unauthorized to perform deletion"});
+        }
+        //TODO: Add admin check as admins can delete jobs too
+
+        const deleteJob = await Job.findByIdAndDelete(jobId);
+        if (!deleteJob) {
+            return res.status(404).json({message: "Job not found"});
+        }
+
+        return res.status(200).json({message: "Job deleted successfully"});
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message: 'Server error'});
+    }
+};
+
 const handlePostJob = async (req, res) => {
     try {
         const {title, company, salaryRange, category, responsibilities, techRequirements, benefits, customQuestions} = req.body;
@@ -32,15 +57,11 @@ const handlePostJob = async (req, res) => {
             return res.status(400).json({message: "Missing required fields"});
         }
 
-        // const createdBy = req.user?._id;
+        const createdBy = req.user?.userId;
 
-        // if (!createdBy) {
-        //     return res.status(401).json({message: "Unauthorized"});
-        // }
-
-        const mongoose = require('mongoose')
-
-        const createdBy = new mongoose.Types.ObjectId('63f0e8b9c1e2a5d3f0b4c123'); //TEST
+        if (!createdBy) {
+             return res.status(401).json({message: "Unauthorized"});
+        }
 
         const job = new Job({
             title,
@@ -64,4 +85,4 @@ const handlePostJob = async (req, res) => {
     }
 };
 
-module.exports = {handleGetJobs, handlePostJob, handleGetJobById}
+module.exports = {handleGetJobs, handlePostJob, handleGetJobById, handleDeleteJob}
