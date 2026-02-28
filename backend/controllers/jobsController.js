@@ -1,4 +1,5 @@
 const Job = require('../models/Job');
+const allowedUpdates = ["title", "salaryRange", "company", "category", "responsibilities", "techRequirements", "benefits", "customQuestions", "status"];
 
 const handleGetJobs = async (req, res) => {
     try {
@@ -85,4 +86,32 @@ const handlePostJob = async (req, res) => {
     }
 };
 
-module.exports = {handleGetJobs, handlePostJob, handleGetJobById, handleDeleteJob}
+const handleUpdateJob = async (req, res) => {
+    const jobId = req.params.id;
+    const updates = {};
+
+    allowedUpdates.forEach((field) => {
+        if (req.body[field] !== undefined) {
+            updates[field] = req.body[field];
+        }
+    });
+
+    try {
+        const updatedJob = await Job.findOneAndUpdate(
+            {_id: jobId, createdBy: req.user.userId},
+            updates,
+            {returnDocument: 'after', runValidators: true}
+        );
+
+        if (!updatedJob) {
+            return res.status(404).json({message: "Job not found or unable to update job"});
+        }
+
+        return res.status(200).json({message: "Job updated successfully", job: updatedJob});
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message: "Server error"});
+    }
+};
+
+module.exports = {handleGetJobs, handlePostJob, handleGetJobById, handleDeleteJob, handleUpdateJob}
