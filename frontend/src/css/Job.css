@@ -1,0 +1,80 @@
+.job-container {
+    display: flex;
+    border: 2px solid #d6e5da;
+    width: 80%;
+    padding: 16px;
+    margin-top: -2px;
+    background-color: #f4f8f5;
+    transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.job-container:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.job-container h2, .job-container p {
+    margin: 0;
+    text-align: left;
+}
+
+.job-container h2 {
+    color: #064711;
+}
+
+.job-container p {
+    color: #3f4f44;
+}
+
+.tech-req-wrapper {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.tech-req {
+    background-color: #e8f3ec;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.job-bottom-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.view-job-posting {
+    padding: 8px;
+    background-color: #064711;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.view-job-posting:hover {
+    background-color: #0a5c17;
+}
+
+.salary {
+    color: #0a5c17;
+    font-weight: 600;
+}
+
+.status.open {
+    background-color: #dff5e4;
+    color: #0a5c17;
+}
+
+.status.closed {
+    background-color: #fde2e2;
+    color: #8b1e1e;
+}
+
+.category {
+    color: #5f6f63;
+    font-size: 0.9rem;
+    font-weight: 500;
+}

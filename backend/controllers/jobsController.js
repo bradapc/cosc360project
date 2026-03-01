@@ -1,5 +1,5 @@
 const Job = require('../models/Job');
-const allowedUpdates = ["title", "salaryRange", "company", "category", "responsibilities", "techRequirements", "benefits", "customQuestions", "status"];
+const allowedUpdates = ["title", "description", "salaryRange", "company", "category", "responsibilities", "techRequirements", "benefits", "customQuestions", "status"];
 
 const handleGetJobs = async (req, res) => {
     try {
@@ -52,9 +52,9 @@ const handleDeleteJob = async (req, res) => {
 
 const handlePostJob = async (req, res) => {
     try {
-        const {title, company, salaryRange, category, responsibilities, techRequirements, benefits, customQuestions} = req.body;
+        const {title, description, company, salaryRange, category, responsibilities, techRequirements, benefits, customQuestions} = req.body;
 
-        if (!title || !company || !salaryRange || !category || !responsibilities || !techRequirements || !benefits || !customQuestions) {
+        if (!title || !description || !company || !salaryRange || !category || !responsibilities || !techRequirements || !benefits || !customQuestions) {
             return res.status(400).json({message: "Missing required fields"});
         }
 
@@ -66,6 +66,7 @@ const handlePostJob = async (req, res) => {
 
         const job = new Job({
             title,
+            description,
             company,
             salaryRange,
             category,
