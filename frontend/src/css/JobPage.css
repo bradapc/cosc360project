@@ -1,0 +1,29 @@
+.job-detail {
+    display: flex;
+    justify-content: center;
+}
+
+.job-detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+
+.job-detail-header {
+    display: flex;
+    justify-content: center;
+}
+
+.job-detail-body {
+    display: flex;
+    justify-content: center;
+}
+
+.job-detail-left {
+    border: 1px solid black;
+}
+
+.job-detail-right {
+    border: 1px solid black;
+}
