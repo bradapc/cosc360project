@@ -1,29 +1,139 @@
 .job-detail {
     display: flex;
     justify-content: center;
+    padding: 40px 16px;
+    background-color: #f4f7f9;
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 .job-detail-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 50%;
+    width: 75%;
+    max-width: 900px;
+    background-color: #fff;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    gap: 24px;
 }
 
 .job-detail-header {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.job-detail-back {
+    background-color: transparent;
+    border: none;
+    color: #2c7a7b;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.job-detail-back:hover {
+    color: #155e63;
+}
+
+.job-detail-header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111;
+    margin: 0;
 }
 
 .job-detail-body {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
 }
 
-.job-detail-left {
-    border: 1px solid black;
+.job-category {
+    font-weight: 600;
+    color: #2c7a7b;
+    font-size: 14px;
+    text-transform: uppercase;
 }
 
-.job-detail-right {
-    border: 1px solid black;
+.job-meta {
+    font-size: 13px;
+    color: #777;
+}
+
+.job-description {
+    line-height: 1.6;
+    color: #333;
+}
+
+.responsibilities-container,
+.tech-requirements-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: start;
+    text-align: left;
+}
+
+.responsibilities-container ul,
+.tech-requirements-container ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.benefits-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.benefit {
+    background-color: #e8f3ec;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #2c7a7b;
+}
+
+.job-salary {
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.apply-now,
+.report-listing {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    margin-top: 12px;
+}
+
+.apply-now {
+    background-color: #2c7a7b;
+    color: white;
+}
+
+.apply-now:hover {
+    background-color: #155e63;
+}
+
+.report-listing {
+    background-color: #f4f4f4;
+    color: #555;
+    margin-left: 12px;
+}
+
+.report-listing:hover {
+    background-color: #e0e0e0;
+}
+
+li {
+    list-style: none;
 }

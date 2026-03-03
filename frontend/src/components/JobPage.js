@@ -1,55 +1,100 @@
-import React from 'react'
-import {useParams} from "react-router-dom";
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from "react-router-dom";
 import '../css/JobPage.css';
 
 const JobPage = () => {
-    const {id} = useParams();
+    const { id } = useParams();
+    const navigate = useNavigate();
     const [job, setJob] = useState(null);
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(null);
+    const [loading, setLoading] = useState(true);
     
     useEffect(() => {
-    const fetchJob = async () => {
-        try {
-            const response = await fetch(`http://localhost:5000/jobs/${id}`, {
-                method: 'GET',
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-            const json = await response.json();
-            setJob(json);
-            setLoading(false);
-        } catch (err) {
-            setError(err);
-            setLoading(false);
-        }
-    };
-    fetchJob();
+        const fetchJob = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/jobs/${id}`, {
+                    headers: { "Content-Type": "application/json" }
+                });
+                const json = await response.json();
+                setJob(json);
+            } catch (err) {
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchJob();
     }, [id]);
-  return (
-    <div className="job-detail">
-        {error && <span className="error-msg">Error: ${error.message}</span>}
-        {loading && <span>Loading...</span>}
-        {job && <div className="job-detail-container">
-                <div className="job-detail-header">
-                    <button className="job-detail-back">←</button>
-                    <h1>{job.company} - {job.title}</h1>
-                </div>
-                <div className="job-detail-body">
-                    <div className="job-detail-left">
-                        <p>{job.description}</p>
-                    </div>
-                    <div className="job-detail-right">
-                        <span>Salary: ${job.salaryRange.min} - ${job.salaryRange.max}</span>
-                        <span>b</span>
-                    </div>
-                </div>
-            </div>}
-    </div>
-  )
-}
 
+    return (
+        <div className="job-detail">
+            {error && <span className="error-msg">Error: {error.message}</span>}
+            {loading && <span>Loading...</span>}
+            {job && (
+                <div className="job-detail-container">
+                    <div className="job-detail-header">
+                        <button 
+                            className="job-detail-back" 
+                            onClick={() => navigate(-1)}
+                        >
+                            ← Back
+                        </button>
+                        <h1>{job.company} - {job.title}</h1>
+                    </div>
+                    <div className="job-detail-body">
+                        <span className="job-category">{job.category}</span>
+                        <span className="job-meta">
+                            Posted {job.createdAt.replace("T", " ")} by {job.createdBy.username}
+                        </span>
+                        <span className="job-meta">
+                            Last updated {job.updatedAt.replace("T", " ")}
+                        </span>
+                        <p className="job-description">{job.description}</p>
 
-export default JobPage
+                        {job.responsibilities.length > 0 && (
+                            <div className="responsibilities-container">
+                                <strong>Responsibilities:</strong>
+                                <ul>
+                                    {job.responsibilities.map((resp, idx) => (
+                                        <li key={idx}>{resp}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+
+                        {job.techRequirements.length > 0 && (
+                            <div className="tech-requirements-container">
+                                <strong>Technical Requirements:</strong>
+                                <ul>
+                                    {job.techRequirements.map((req, idx) => (
+                                        <li key={idx}>{req}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+
+                        {job.benefits.length > 0 && (
+                            <div className="benefits-container">
+                                {job.benefits.map((benefit, idx) => (
+                                    <span className="benefit" key={idx}>{benefit}</span>
+                                ))}
+                            </div>
+                        )}
+
+                        <span className="job-salary">
+                            Salary: ${job.salaryRange.min} - ${job.salaryRange.max}
+                        </span>
+                        <button className="apply-now">
+                            Apply
+                        </button>
+                        <button className="report-listing">
+                            Report
+                        </button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default JobPage;
