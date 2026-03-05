@@ -105,7 +105,7 @@
 }
 
 .apply-now,
-.report-listing {
+.report-listing, .edit-listing, .delete-listing {
     padding: 10px 20px;
     border-radius: 8px;
     border: none;
@@ -132,6 +132,26 @@
 
 .report-listing:hover {
     background-color: #e0e0e0;
+}
+
+.edit-listing {
+    background-color: #f4f4f4;
+    color: #555;
+    margin-left: 12px;
+}
+
+.edit-listing:hover {
+    background-color: #e0e0e0;
+}
+
+.delete-listing {
+    background-color: #f85050;
+    color: #555;
+    margin-left: 12px;
+}
+
+.delete-listing:hover {
+    background-color: #f13030;
 }
 
 li {

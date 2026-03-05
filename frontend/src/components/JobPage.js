@@ -2,12 +2,29 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import '../css/JobPage.css';
 
+//TODO add auth based editing and deleting
 const JobPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [job, setJob] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const deleteListing = async (e) => {
+        try {
+            const response = await fetch(`http://localhost:5000/jobs/${id}`, {
+                method: 'DELETE',
+                headers: { "Content-Type": "application/json" },
+
+            })
+            if (!response.ok) {
+                throw new Error("Failed to delete job resource");
+            }
+            navigate(-1);
+        } catch (err) {
+            console.error(err);
+        }
+    }
     
     useEffect(() => {
         const fetchJob = async () => {
@@ -90,6 +107,9 @@ const JobPage = () => {
                         <button className="report-listing">
                             Report
                         </button>
+                        <button className="edit-listing">Edit</button>
+                        <button className="delete-listing"
+                        onClick={(e) => deleteListing(e)}>Delete</button>
                     </div>
                 </div>
             )}
