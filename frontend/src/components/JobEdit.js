@@ -1,0 +1,179 @@
+import React from 'react'
+import {useState, useEffect} from 'react'
+import {useParams, useNavigate} from "react-router-dom";
+import '../css/JobEdit.css';
+
+const JobEdit = () => {
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [company, setCompany] = useState("");
+    const [salaryRange, setSalaryRange] = useState({});
+    const [category, setCategory] = useState("");
+    const [responsibilities, setResponsibilities] = useState([]);
+    const [techRequirements, setTechRequirements] = useState([]);
+    const [benefits, setBenefits] = useState([]);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [newResponsibility, setNewResponsibility] = useState("");
+    const [newTechRequirement, setNewTechRequirement] = useState("");
+    const [newBenefit, setNewBenefit] = useState("");
+    const {id} = useParams("id");
+    const navigate = useNavigate();
+
+    const updateJob = async () => {
+        try {
+        const response = await fetch(`http://localhost:5000/jobs/${id}`, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                title,
+                description,
+                company,
+                salaryRange,
+                category,
+                responsibilities,
+                techRequirements,
+                benefits
+            })
+        });
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const addResponsibility = () => {
+        if (newResponsibility === "") return;
+        setResponsibilities(prev => [...prev, newResponsibility])
+        setNewResponsibility("");
+    };
+
+    const addTechRequirement = () => {
+        if (newTechRequirement === "") return;
+        setTechRequirements(prev => [...prev, newTechRequirement])
+        setNewTechRequirement("");
+    };
+
+    const addBenefit = () => {
+        if (newBenefit === "") return;
+        setBenefits(prev => [...prev, newBenefit])
+        setNewBenefit("");
+    };
+
+    useEffect(() => {
+        const fetchJob = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/jobs/${id}`, {
+                    headers: { "Content-Type": "application/json" }
+                });
+                const job = await response.json();
+                setTitle(job.title);
+                setDescription(job.description);
+                setCompany(job.company);
+                setCategory(job.category);
+                setSalaryRange(job.salaryRange);
+                setResponsibilities(job.responsibilities);
+                setTechRequirements(job.techRequirements);
+                setBenefits(job.benefits);
+            } catch (err) {
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchJob();
+    }, [id]);
+
+  return (
+    <div className="job-edit">
+
+        <label>Job Title</label>
+        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+
+        <label>Description</label>
+        <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+
+        <label>Company</label>
+        <input type="text" value={company} onChange={(e) => setCompany(e.target.value)} />
+
+        <label>Category</label>
+        <input type="text" value={category} onChange={(e) => setCategory(e.target.value)} />
+
+        <label>Salary Range</label>
+        <input
+            type="text"
+            placeholder="Minimum"
+            value={salaryRange.min}
+            onChange={(e) =>
+                setSalaryRange(prev => ({min: e.target.value, max: prev.max}))
+            }
+        />
+        <input
+            type="text"
+            placeholder="Maximum"
+            value={salaryRange.max}
+            onChange={(e) =>
+                setSalaryRange(prev => ({min: prev.min, max: e.target.value}))
+            }
+        />
+
+        <label>Responsibilities</label>
+        {responsibilities.map((resp, idx) => (
+            <div key={idx} className="resp">
+                <span>{resp}</span>
+                <button className="delete-btn"
+                value={resp}
+                onClick={() => setResponsibilities(prev => prev.filter(curResp => curResp !== resp))}>x</button>
+            </div>
+        ))}
+        <input
+            type="text"
+            placeholder="Add Responsibility"
+            value={newResponsibility}
+            onChange={(e) => setNewResponsibility(e.target.value)}
+        />
+        <button className="add-btn-edit-job" onClick={() => addResponsibility()}>+</button>
+
+        <label>Technical Requirements</label>
+        {techRequirements.map((techReq, idx) => (
+            <div key={idx} className="tech-requirement">
+                <span>{techReq}</span>
+                <button className="delete-btn"
+                onClick = {() => setTechRequirements(prev => prev.filter(curTR => curTR !== techReq))}>x</button>
+            </div>
+        ))}
+        <input
+            type="text"
+            placeholder="Add Tech Requirement"
+            value={newTechRequirement}
+            onChange={(e) => setNewTechRequirement(e.target.value)}
+        />
+        <button className="add-btn-edit-job" onClick={() => addTechRequirement()}>+</button>
+
+        <label>Benefits</label>
+        {benefits.map((benefit, idx) => (
+            <div key={idx} className="benefit-edit-job">
+                <span>{benefit}</span>
+                <button className="delete-btn"
+                onClick = {() => setBenefits(prev => prev.filter(curBenefit => curBenefit !== benefit))}>x</button>
+            </div>
+        ))}
+        <input
+            type="text"
+            placeholder="Add Benefit"
+            value={newBenefit}
+            onChange={(e) => setNewBenefit(e.target.value)}
+        />
+        <button className="add-btn-edit-job" onClick={() => addBenefit()}>+</button>
+        <div className="job-edit-actions">
+            <button className="job-edit-cancel"
+            onClick={() => navigate(-1)}>Cancel</button>
+            <button className="job-edit-update"
+            onClick={updateJob}>Update</button>
+        </div>
+    </div>
+  )
+}
+
+export default JobEdit

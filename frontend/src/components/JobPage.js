@@ -25,6 +25,10 @@ const JobPage = () => {
             console.error(err);
         }
     }
+
+    const editListing = async (e) => {
+        navigate(`/jobs/${id}/edit`)
+    };
     
     useEffect(() => {
         const fetchJob = async () => {
@@ -107,7 +111,8 @@ const JobPage = () => {
                         <button className="report-listing">
                             Report
                         </button>
-                        <button className="edit-listing">Edit</button>
+                        <button className="edit-listing"
+                        onClick={(e) => editListing(e)}>Edit</button>
                         <button className="delete-listing"
                         onClick={(e) => deleteListing(e)}>Delete</button>
                     </div>
