@@ -8,6 +8,13 @@
     transition: box-shadow 0.2s ease, transform 0.15s ease;
 }
 
+.jobs-listings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
 .job-container:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transform: translateY(-2px);
@@ -44,7 +51,7 @@
     justify-content: space-between;
 }
 
-.view-job-posting {
+.view-job-posting, .add-job-listing {
     padding: 8px;
     background-color: #064711;
     color: white;
@@ -54,7 +61,7 @@
     transition: background-color 0.2s ease;
 }
 
-.view-job-posting:hover {
+.view-job-posting:hover, .add-job-listing:hover {
     background-color: #0a5c17;
 }
 

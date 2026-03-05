@@ -36,6 +36,9 @@ const JobPage = () => {
                 const response = await fetch(`http://localhost:5000/jobs/${id}`, {
                     headers: { "Content-Type": "application/json" }
                 });
+                if (!response.ok) {
+                    throw new Error(`Could not fetch job ${id}`);
+                }
                 const json = await response.json();
                 setJob(json);
             } catch (err) {
