@@ -6,8 +6,8 @@ import '../css/JobPage.css';
 const JobPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [job, setJob] = useState(null);
-    const [error, setError] = useState(null);
+    const [job, setJob] = useState("");
+    const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
 
     const deleteListing = async (e) => {

@@ -7,12 +7,12 @@ const JobEdit = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [company, setCompany] = useState("");
-    const [salaryRange, setSalaryRange] = useState({});
+    const [salaryRange, setSalaryRange] = useState({min: "", max: ""});
     const [category, setCategory] = useState("");
     const [responsibilities, setResponsibilities] = useState([]);
     const [techRequirements, setTechRequirements] = useState([]);
     const [benefits, setBenefits] = useState([]);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
     const [newResponsibility, setNewResponsibility] = useState("");
     const [newTechRequirement, setNewTechRequirement] = useState("");
