@@ -24,6 +24,7 @@ const JobEdit = () => {
         try {
         const response = await fetch(`http://localhost:5000/jobs/${id}`, {
             method: 'PATCH',
+            credentials: 'include',
             headers: {
                 "Content-Type": "application/json"
             },
@@ -38,6 +39,9 @@ const JobEdit = () => {
                 benefits
             })
         });
+        if (response.ok) {
+            navigate(-1);
+        }
         } catch (err) {
             console.error(err);
         }

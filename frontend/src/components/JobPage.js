@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import '../css/JobPage.css';
+import {useAuth} from '../hooks/useAuth'
 
-//TODO add auth based editing and deleting
 const JobPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [job, setJob] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
+    const {user, authLoading} = useAuth();
 
     const deleteListing = async (e) => {
         try {
             const response = await fetch(`http://localhost:5000/jobs/${id}`, {
                 method: 'DELETE',
+                credentials: 'include',
                 headers: { "Content-Type": "application/json" },
 
             })
@@ -41,6 +43,7 @@ const JobPage = () => {
                 }
                 const json = await response.json();
                 setJob(json);
+                console.log(json)
             } catch (err) {
                 setError(err);
             } finally {
@@ -114,10 +117,14 @@ const JobPage = () => {
                         <button className="report-listing">
                             Report
                         </button>
+                        {!authLoading && user?.userId === job.createdBy._id && 
+                        <>
                         <button className="edit-listing"
                         onClick={(e) => editListing(e)}>Edit</button>
                         <button className="delete-listing"
                         onClick={(e) => deleteListing(e)}>Delete</button>
+                        </>
+                        }
                     </div>
                 </div>
             )}

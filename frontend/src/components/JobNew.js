@@ -25,6 +25,7 @@ const JobNew = () => {
         try {
             const response = fetch(`http://localhost:5000/jobs`, {
                 method: "POST",
+                credentials: 'include',
                 headers: {
                     "Content-Type": "application/json",
                 },
