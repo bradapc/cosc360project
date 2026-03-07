@@ -21,9 +21,9 @@ const JobNew = () => {
     const [newCustomQuestion, setNewCustomQuestion] = useState("");
     const navigate = useNavigate();
 
-    const postJob = () => {
+    const postJob = async () => {
         try {
-            const response = fetch(`http://localhost:5000/jobs`, {
+            const response = await fetch(`http://localhost:5000/jobs`, {
                 method: "POST",
                 credentials: 'include',
                 headers: {
@@ -41,10 +41,7 @@ const JobNew = () => {
                     customQuestions
                 })
             })
-            if (!response.ok) {
-                throw new Error(response.msg);
-            }
-            const json = response.json();
+            const json = await response.json();
             navigate(`/jobs/${json.job._id}`)
         } catch (err) {
             setError(err);

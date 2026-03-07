@@ -22,7 +22,7 @@ const JobPage = () => {
             if (!response.ok) {
                 throw new Error("Failed to delete job resource");
             }
-            navigate(-1);
+            navigate("/jobs");
         } catch (err) {
             console.error(err);
         }
@@ -43,7 +43,6 @@ const JobPage = () => {
                 }
                 const json = await response.json();
                 setJob(json);
-                console.log(json)
             } catch (err) {
                 setError(err);
             } finally {
