@@ -1,12 +1,30 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import {useAuth} from "../hooks/useAuth";
+import '../css/JobApplication.css';
 
 const JobApplication = () => {
     const [job, setJob] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
     const {id} = useParams();
+    const {user, loading: authLoading} = useAuth();
+    const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        //todo
+    };
+
+    useEffect(() => {
+        if (!authLoading && !user) {
+            console.log(authLoading);
+            console.log(user);
+            navigate("/login");
+            return;
+        }
+  }, [user, authLoading, navigate])
 
     useEffect(() => {
         const fetchJob = async () => {
@@ -28,8 +46,11 @@ const JobApplication = () => {
         fetchJob();
     }, [id]);
   return (
-    <div>
+    <div className="job-application-container">
+            {loading && <p>Loading...</p>}
+            {error && <span className="error-msg">{error}</span>}
             {job && 
+            <>
             <div className="job-application-summary">
                 <h1>Apply for: {job.title}</h1>
                 <p>{job.company}</p>
@@ -42,10 +63,44 @@ const JobApplication = () => {
                 </ul>
             </div>
 
-        }
-      <form className="job-application-form">
+        <form className="job-application-form" onSubmit={(e) => handleSubmit(e)}>
+            <label htmlFor="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" placeholder="First Name" required></input>
 
-      </form>
+            <label htmlFor="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" placeholder="Last Name" required></input>
+
+            <label htmlFor="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Email Address" required></input>
+
+            <label htmlFor="linkedin">LinkedIn</label>
+            <input type="url" id="linkedin" name="linkedin" placeholder="LinkedIn"></input>
+
+            <label htmlFor="experienceYears">Years of Experience</label>
+            <input type="number" id="experienceYears" name="experienceYears" min="0" max="100" required></input>
+
+            <label htmlFor="experienceDescription">Briefly describe your experience relevant to this job</label>
+            <textarea
+                id="experienceDescription"
+                name="experienceDescription"
+                maxLength="500"
+                required ></textarea>
+            {job.customQuestions.map((question, idx) => (
+                <div key={idx} 
+                className="custom-question">
+                    <label htmlFor={`customQuestion${idx}`}>{question}</label>
+                    <textarea className="customQuestionText"
+                    id={`customQuestion${idx}`}
+                    name={`customQuestion${idx}`}
+                    maxLength="250"
+                    required ></textarea>
+                </div>
+            ))}
+
+            <button type="submit">Submit Application</button>
+        </form>
+        </>
+        }
     </div>
   )
 }
