@@ -1,5 +1,5 @@
-const {connectToDb} = require('../db/connection');
 const bcrypt = require('bcrypt');
+const User = require('../models/User');
 
 const handleRegister = async (req, res) => {
     if (!req.body) {
@@ -14,9 +14,7 @@ const handleRegister = async (req, res) => {
     const {username, password, dateOfBirth, firstName, lastName, emailAddress} = req.body;
 
     //Check database for username
-    const db = await connectToDb();
-    const collection = db.collection('users');
-    const dbResult = await collection.findOne({username: username});
+    const dbResult = await User.findOne({username});
     if (dbResult) {
         return res.status(409).json({'message': 'User already exists'})
     }
@@ -32,7 +30,7 @@ const handleRegister = async (req, res) => {
         emailAddress
     }
 
-    await collection.insertOne(user);
+    await User.create(user);
     return res.status(201).json({'message': `User ${username} created successfully`});
 };
 
