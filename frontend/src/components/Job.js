@@ -1,5 +1,6 @@
 import React from 'react'
 import '../css/Job.css';
+import { Link } from "react-router-dom";
 
 const Job = ({job}) => {
   return (
@@ -16,7 +17,7 @@ const Job = ({job}) => {
                 </div>
                 <span className="salary">${job.salaryRange.min} - ${job.salaryRange.max} per year</span>
                 <span className={`status ${job.status}`}>{job.status[0].toUpperCase() + job.status.slice(1)}</span>
-                <button className="view-job-posting">View Posting</button>
+                <Link to={`/jobs/${job._id}`}><button className="view-job-posting">View Posting</button></Link>
             </div>
         </div>
     </div>

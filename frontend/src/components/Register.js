@@ -1,8 +1,9 @@
 import React from 'react'
 import '../css/Auth.css'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../hooks/useAuth';
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -14,11 +15,20 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const {user, loading} = useAuth();
+
+    useEffect(() => {
+      if (!loading && user) {
+        navigate("/jobs");
+        return;
+      }
+    }, [user, loading, navigate])
 
   const submitRegister = async (e) => {
     e.preventDefault();
     const response = await fetch("http://localhost:5000/register", {
       method: "POST",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json"
       },

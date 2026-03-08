@@ -30,6 +30,7 @@ app.use(cookieParser());
 
 app.use('/register', require('./routes/register'));
 app.use('/login', require('./routes/login'));
+app.use('/auth', require('./routes/auth'));
 app.use('/jobs', require('./routes/jobs'));
 
 app.get('/', (req, res) => {

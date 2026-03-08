@@ -1,19 +1,29 @@
 import React from 'react';
 import '../css/Auth.css'
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 function Login(){
   const [error, setError] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const {user, loading} = useAuth();
+
+  useEffect(() => {
+    if (!loading && user) {
+      navigate("/jobs");
+      return;
+    }
+  }, [user, loading, navigate])
 
   const submitLogin = async (e) => {
     e.preventDefault();
     const response = await fetch("http://localhost:5000/login", {
       method: "POST",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json"
       },
