@@ -33,6 +33,7 @@ app.use('/login', require('./routes/login'));
 app.use('/auth', require('./routes/auth'));
 app.use('/users', require('./routes/user'));
 app.use('/jobs', require('./routes/jobs'));
+app.use('/applications', require('./routes/applications'));
 
 app.get('/', (req, res) => {
     res.json({

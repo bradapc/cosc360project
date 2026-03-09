@@ -5,22 +5,44 @@ import {useAuth} from "../hooks/useAuth";
 import '../css/JobApplication.css';
 
 const JobApplication = () => {
-    const [job, setJob] = useState("");
+    const [job, setJob] = useState(null);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
     const {id} = useParams();
     const {user, loading: authLoading} = useAuth();
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        //todo
+        const formData = Object.fromEntries(new FormData(e.target));
+
+        const answers = job.customQuestions.map((question, idx) => ({
+            question,
+            answer: formData[`customQuestion${idx}`]
+        }));
+        const data = {
+            ...formData,
+            answers,
+            jobId: id
+        };
+        try {
+            const response = await fetch(`http://localhost:5000/applications`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            if (!response.ok) {
+                throw new Error("Submission failed");
+            }
+        } catch (err) {
+            setError(err.message);
+        }
     };
 
     useEffect(() => {
         if (!authLoading && !user) {
-            console.log(authLoading);
-            console.log(user);
             navigate("/login");
             return;
         }
