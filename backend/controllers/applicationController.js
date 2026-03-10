@@ -1,5 +1,19 @@
 const Application = require('../models/Application');
 
+const getApplicationById = async (req, res) => {
+    const applicationId = req.params.id;
+    try {
+        const application = await Application.findById(applicationId);
+        if (!application) {
+            return res.status(404).json({message: "Application not found"});
+        }
+        return res.status(200).json(application);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message: 'Server error'});
+    }
+};
+
 const postApplication = async (req, res) => {
     try {
         const {firstName, lastName, email, linkedin, experienceYears, experienceDescription, answers, jobId} = req.body;
@@ -37,4 +51,4 @@ const postApplication = async (req, res) => {
 
 };
 
-module.exports = {postApplication}
+module.exports = {postApplication, getApplicationById}
