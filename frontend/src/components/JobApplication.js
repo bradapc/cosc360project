@@ -28,6 +28,7 @@ const JobApplication = () => {
         try {
             const response = await fetch(`http://localhost:5000/applications`, {
                 method: "POST",
+                credentials: 'include',
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -36,6 +37,8 @@ const JobApplication = () => {
             if (!response.ok) {
                 throw new Error("Submission failed");
             }
+            const json = await response.json();
+            navigate(`/applications/${json.id}`);
         } catch (err) {
             setError(err.message);
         }

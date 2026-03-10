@@ -1,15 +1,40 @@
+const Application = require('../models/Application');
+
 const postApplication = async (req, res) => {
-    const application = {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        linkedin: req.body.linkedin,
-        experienceYears: req.body.experienceYears,
-        experienceDescription: req.body.experienceDescription,
-        answers: req.body.answers,
-        jobId: req.body.jobId
-    };
-    console.log(application);
+    try {
+        const {firstName, lastName, email, linkedin, experienceYears, experienceDescription, answers, jobId} = req.body;
+
+        if (!firstName || !lastName || !email || !linkedin || experienceYears === undefined || !experienceDescription || !answers || !jobId) {
+            return res.status(400).json({message: "Missing required fields"});
+        }
+
+        const createdBy = req.user?.userId;
+
+        if (!createdBy) {
+                return res.status(401).json({message: "Unauthorized"});
+        }
+
+        const application = new Application({
+            firstName,
+            lastName,
+            email,
+            linkedin,
+            experienceYears,
+            experienceDescription,
+            answers,
+            jobId,
+            createdBy
+        });
+
+        await application.save();
+
+        return res.status(201).json({message: `Application created successfully`, id: application._id})
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message: "Server error"});
+    }
+
 };
 
 module.exports = {postApplication}
