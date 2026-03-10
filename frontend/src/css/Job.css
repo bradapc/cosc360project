@@ -85,3 +85,40 @@
     font-size: 0.9rem;
     font-weight: 500;
 }
+
+.job-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 80%;
+    margin: 0 auto 24px auto; 
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f8f5;
+    padding: 16px;
+    border: 2px solid #d6e5da;
+    border-radius: 8px;
+}
+
+.job-filters input,
+.job-filters select {
+    padding: 10px 12px;
+    border: 1px solid #c2d5c8;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: #3f4f44;
+    background-color: white;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.job-filters input[name="search"] {
+    flex-grow: 1;
+    min-width: 200px;
+}
+
+.job-filters input:focus,
+.job-filters select:focus {
+    border-color: #064711; 
+    box-shadow: 0 0 0 2px rgba(6, 71, 17, 0.15);
+}
