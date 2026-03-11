@@ -1,0 +1,103 @@
+/* Container to match .job-detail */
+.user-profile {
+    display: flex;
+    justify-content: center;
+    padding: 40px 16px;
+    background-color: #f4f7f9; /* Same light blue-gray */
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card to match .job-detail-container */
+.user-profile-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px; /* Slightly narrower for a profile */
+    background-color: #fff;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    gap: 20px;
+}
+
+.user-profile-back {
+    background-color: transparent;
+    border: none;
+    color: #2c7a7b;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Header style to match .job-detail-header h1 */
+.user-profile-container h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111;
+    margin: 0;
+    border-bottom: 2px solid #f4f7f9;
+    padding-bottom: 16px;
+}
+
+/* Detail text to match .job-description and .job-meta */
+.user-profile-container p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+}
+
+/* Bold labels to match the teal accents */
+.user-profile-container p strong {
+    color: #2c7a7b; /* The signature teal from your job style */
+    font-weight: 600;
+    margin-right: 8px;
+    display: inline-block;
+    width: 120px; /* Aligns the data vertically */
+}
+
+/* Button Grouping */
+.profile-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+/* Base button styles matching your job board buttons */
+.user-profile button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+/* "Edit" matches the .edit-listing / .report-listing style */
+.edit-btn {
+    background-color: #f4f4f4;
+    color: #555;
+}
+
+.edit-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* "Delete" matches .delete-listing style */
+.delete-btn {
+    background-color: #f85050;
+    color: white; /* Changed to white for better contrast on red */
+}
+
+.delete-btn:hover {
+    background-color: #f13030;
+}
+
+/* Error/Loading messages */
+.error-msg {
+    color: #f85050;
+    font-weight: 600;
+}

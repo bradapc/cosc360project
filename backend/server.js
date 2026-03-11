@@ -32,6 +32,7 @@ app.use('/register', require('./routes/register'));
 app.use('/login', require('./routes/login'));
 app.use('/auth', require('./routes/auth'));
 app.use('/jobs', require('./routes/jobs'));
+app.use('/users', require('./routes/user'));
 
 app.get('/', (req, res) => {
     res.json({

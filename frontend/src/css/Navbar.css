@@ -19,3 +19,10 @@
 .navbar li:hover {
     background-color: green;
 }
+
+.navbar a:visited {
+    color: inherit;
+}
+a {
+    text-decoration: none;
+}
