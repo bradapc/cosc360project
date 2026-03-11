@@ -39,18 +39,13 @@ const Jobs = () => {
                     onChange={handleFilterChange} 
                 />
                 
-                <select name="category" value={filters.category} onChange={handleFilterChange}>
-                    <option value="">All Categories</option>
-                    <option value="Software Development">Software Development</option>
-                    <option value="Data Science">Data Science</option>
-                    <option value="Product Management">Product Management</option>
-                    <option value="Quality Assurance">Quality Assurance</option>
-                    <option value="DevOps">DevOps</option>
-                    <option value="Cybersecurity">Cybersecurity</option>
-                    <option value="Engineering">Engineering</option>
-                    <option value="Design">Design</option>
-                    <option value="Marketing">Marketing</option>
-                </select>
+                <input 
+                    type="text" 
+                    name="category" 
+                    placeholder="Category" 
+                    value={filters.category} 
+                    onChange={handleFilterChange} 
+                />
 
                 <select name="status" value={filters.status} onChange={handleFilterChange}>
                     <option value="">All Statuses</option>
