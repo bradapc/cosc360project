@@ -14,6 +14,7 @@ const Jobs = () => {
         category: '',
         status: '',
         minSalary: '',
+        maxSalary: '',
         skills: '',
         sortBy: 'createdAt',
         sortOrder: 'desc'
@@ -46,7 +47,7 @@ const Jobs = () => {
                     value={filters.category} 
                     onChange={handleFilterChange} 
                 />
-
+            
                 <select name="status" value={filters.status} onChange={handleFilterChange}>
                     <option value="">All Statuses</option>
                     <option value="open">Open</option>
@@ -61,6 +62,14 @@ const Jobs = () => {
                     onChange={handleFilterChange} 
                 />
 
+                <input 
+                    type="number" 
+                    name="maxSalary" 
+                    placeholder="Max Salary" 
+                    value={filters.maxSalary} 
+                    onChange={handleFilterChange} 
+                />
+
                 <select name="sortBy" value={filters.sortBy} onChange={handleFilterChange}>
                     <option value="createdAt">Date Posted</option>
                     <option value="salaryRange.min">Salary</option>
@@ -72,7 +81,6 @@ const Jobs = () => {
                 </select>
             </div>
 
-            {loading && <p>Loading jobs...</p>}
             {error && <p className="error-msg">Error: {error.message}</p>}
             
             {jobs && 

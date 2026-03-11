@@ -3,7 +3,7 @@ const allowedUpdates = ["title", "description", "salaryRange", "company", "categ
 
 const handleGetJobs = async (req, res) => {
     try {
-        const { search, category, status, minSalary, skills, sortBy, sortOrder } = req.query;
+        const { search, category, status, minSalary, maxSalary, skills, sortBy, sortOrder } = req.query;
 
         let query = {};
 
@@ -20,6 +20,9 @@ const handleGetJobs = async (req, res) => {
         if (status) query.status = status;
         if (minSalary) {
         query['salaryRange.max'] = { $gte: Number(minSalary) }; 
+        }
+        if (maxSalary) {
+        query['salaryRange.min'] = { $lte: Number(maxSalary) };
         }
 
         if (skills) {
