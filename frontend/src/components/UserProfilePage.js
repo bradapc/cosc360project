@@ -58,13 +58,16 @@ const UserProfilePage = () => {
             {loading && <span>Loading...</span>}
             {user && (
                 <div className="user-profile-container">
-                    <button 
-                            className="user-profile-back" 
-                            onClick={() => navigate(-1)}
-                        >
-                            ← Back
-                        </button>
-                    <h2>{user.firstName} {user.lastName}</h2>
+                    <div className="user-profile-header">
+                        <button 
+                                className="user-profile-back" 
+                                onClick={() => navigate(-1)}
+                            >
+                                ← Back
+                            </button>
+                        <h2>{user.firstName} {user.lastName}</h2>
+                    </div>
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg" className="profile-pic"></img>
                     <p>Username: {user.username}</p>
                     <p>Email: {user.emailAddress}</p>
                     <p>Date of Birth: {new Date(user.dateOfBirth).toLocaleDateString()}</p>
