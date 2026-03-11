@@ -8,6 +8,8 @@ import JobPage from './components/JobPage';
 import JobEdit from './components/JobEdit';
 import JobNew from './components/JobNew';
 import {Route, Routes} from 'react-router-dom';
+import JobApplication from './components/JobApplication';
+import ViewApplication from './components/ViewApplication';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path="/jobs/:id" element={<JobPage />} />
         <Route path="/jobs/new" element={<JobNew />} />
         <Route path='/jobs/:id/edit' element={<JobEdit />} />
+        <Route path='/jobs/:id/apply' element={<JobApplication />} />
+        <Route path='/applications/:id' element={<ViewApplication />} />
       </Routes>
       <Footer />
     </div>
