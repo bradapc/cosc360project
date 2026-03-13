@@ -1,0 +1,30 @@
+.Analytics {
+  display: flex; /* Enables flexbox layout for children */
+  justify-content: space-around; /* Distributes space evenly around items on the main axis */
+
+}
+
+.Analytics div {
+  background-color: #e8f3ec;
+  align-items: center; /* Centers items along the cross axis */
+  align-content: center;
+  padding: 20px;
+  margin: 10px;
+  width: 150px;
+  height: 100px;
+  border-radius: 20px;
+}
+
+
+
+tr:nth-child(even) {
+  background-color: #e8f3ec; 
+}
+
+th{
+  border-bottom: 2px solid green;
+}
+
+th, tr {
+  width: 150px;
+}

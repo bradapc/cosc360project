@@ -7,7 +7,7 @@ const Navbar = () => {
     <div className="navbar">
       <ul>
         <Link to="jobs"><li>Jobs</li></Link>
-        <li>Admin Dashboard</li>
+        <Link to="/adminDashboard"><li>Admin Dashboard</li></Link>
         <li>Applicant Dashboard</li>
         <li>Employer Dashboard</li>
         <Link to="/login"><li>Login</li></Link>

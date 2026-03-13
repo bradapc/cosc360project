@@ -7,6 +7,7 @@ import Jobs from './components/Jobs';
 import JobPage from './components/JobPage';
 import JobEdit from './components/JobEdit';
 import JobNew from './components/JobNew';
+import AdminDashboard from './components/AdminDashboard';
 import {Route, Routes} from 'react-router-dom';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/jobs/:id" element={<JobPage />} />
         <Route path="/jobs/new" element={<JobNew />} />
         <Route path='/jobs/:id/edit' element={<JobEdit />} />
+        <Route path='/admin' element={<AdminDashboard />} />
       </Routes>
       <Footer />
     </div>
