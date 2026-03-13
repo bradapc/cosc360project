@@ -11,6 +11,16 @@ const JobPage = () => {
     const [loading, setLoading] = useState(true);
     const {user, authLoading} = useAuth();
 
+    const handleApply = async () => {
+        if (authLoading) {
+            return;
+        }
+        if (!user) {
+            navigate("/login");
+        }
+        navigate(`/jobs/${id}/apply`);
+    };
+
     const deleteListing = async (e) => {
         try {
             const response = await fetch(`http://localhost:5000/jobs/${id}`, {
@@ -110,7 +120,8 @@ const JobPage = () => {
                         <span className="job-salary">
                             Salary: ${job.salaryRange.min} - ${job.salaryRange.max}
                         </span>
-                        <button className="apply-now">
+                        <button className="apply-now"
+                        onClick={handleApply}>
                             Apply
                         </button>
                         <button className="report-listing">
