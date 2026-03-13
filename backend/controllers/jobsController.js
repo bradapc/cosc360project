@@ -3,7 +3,45 @@ const allowedUpdates = ["title", "description", "salaryRange", "company", "categ
 
 const handleGetJobs = async (req, res) => {
     try {
-        const jobs = await Job.find().populate('createdBy', 'username');
+        const { search, category, status, minSalary, maxSalary, skills, sortBy, sortOrder } = req.query;
+
+        let query = {};
+
+        if (search) {
+            query.$or = [
+                { title: { $regex: search, $options: 'i' } },
+                { company: { $regex: search, $options: 'i' } },
+                { description: { $regex: search, $options: 'i' } }
+            ];
+        }
+
+        if (category) {query.category = { $regex: category, $options: 'i' };
+}
+        if (status) query.status = status;
+        if (minSalary) {
+        query['salaryRange.max'] = { $gte: Number(minSalary) }; 
+        }
+        if (maxSalary) {
+        query['salaryRange.min'] = { $lte: Number(maxSalary) };
+        }
+
+        if (skills) {
+            const skillsArray = skills.split(',').map(skill => skill.trim());
+            query.techRequirements = { $in: skillsArray }; 
+        }
+
+
+        let sortOptions = {};
+        if (sortBy) {
+            sortOptions[sortBy] = sortOrder === 'asc' ? 1 : -1;
+        } else {
+            sortOptions.createdAt = -1; 
+        }
+
+        const jobs = await Job.find(query)
+            .sort(sortOptions)
+            .populate('createdBy', 'username');
+
         return res.status(200).json(jobs);
     } catch (err) {
         console.error(err);

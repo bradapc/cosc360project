@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import useJobs from '../hooks/useJobs'
 import Job from './Job';
 import '../css/Jobs.css';
@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import {useAuth} from '../hooks/useAuth';
 
 const Jobs = () => {
-    const {jobs, loading, error} = useJobs();
     const navigate = useNavigate();
     const { user, authLoading } = useAuth();
 
@@ -95,7 +94,7 @@ const Jobs = () => {
                     <Job key={idx} job={job} />
                 ))}
             </div>}
-            {jobs && jobs.length == 0 && <p>No jobs found</p>}
+            {jobs && jobs.length === 0 && <p>No jobs found</p>}
         </div>
     )
 }
