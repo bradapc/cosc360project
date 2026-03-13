@@ -94,6 +94,7 @@ const Jobs = () => {
                     <Job key={idx} job={job} />
                 ))}
             </div>}
+            {jobs.length == 0 && <p>No jobs found</p>}
         </div>
     )
 }
