@@ -19,7 +19,6 @@
     border-radius: 12px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     gap: 20px;
-    align-items: center;
 }
 
 .user-profile-back {
@@ -108,5 +107,5 @@
     height: 120px;
     border-radius: 50%;
     margin-bottom: 20px;
-
+    align-self: center;
 }

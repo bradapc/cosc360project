@@ -22,7 +22,7 @@ const handleDeleteUser = async (req, res) => {
         if (!user) {
             return res.status(404).json({message: "User not found"});
         }
-        if(req.body.user.userId !== userId && req.body.user.role !== 'admin') {
+        if(req.user.userId !== userId && req.body.user.role !== 'admin') {
             return res.status(403).json({message: "Forbidden: You can only delete your own account"});
         }
 
