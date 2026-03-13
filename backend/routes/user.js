@@ -3,7 +3,6 @@ const router = express.Router();
 const usersController = require('../controllers/usersController');
 const verifyJWT = require('../middleware/verifyJWT');
 
-router.get('/:id', userController.handleGetUser);
 router.get('/:id', usersController.handleGetUserById);
 router.post('/', verifyJWT, usersController.handlePostUser);
 router.patch('/:id', verifyJWT, usersController.handleUpdateUser);
