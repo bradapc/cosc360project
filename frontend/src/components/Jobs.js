@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import useJobs from '../hooks/useJobs';
+import React from 'react'
+import useJobs from '../hooks/useJobs'
 import Job from './Job';
 import '../css/Jobs.css';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import {useAuth} from '../hooks/useAuth';
 
 const Jobs = () => {
+    const {jobs, loading, error} = useJobs();
     const navigate = useNavigate();
     const { user, authLoading } = useAuth();
 
@@ -99,4 +100,4 @@ const Jobs = () => {
     )
 }
 
-export default Jobs;
+export default Jobs
